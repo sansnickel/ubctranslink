@@ -11,7 +11,7 @@ import org.xml.sax.SAXException;
 
 public final class HttpRequest {
 
-    private static final int TIME_FRAME = 75;
+    private static final int TIME_FRAME = 80;
     private static final int COUNT = 10;
 
     private static final String url = "http://api.translink.ca/rttiapi/v1/stops/";

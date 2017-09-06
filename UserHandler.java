@@ -40,7 +40,6 @@ public class UserHandler extends DefaultHandler {
 
             if (isRouteNo) {                                // if we read a RouteNo, then we can print it out
                 System.out.println("\n" + new String(ch, start, length));
-                System.out.print(' ');
                 isRouteNo = false;                          // lower flag
                 prevCountdown = -3;                         // set for initial spacing
                 prevLength = 0;                             // set for initial spacing
@@ -52,21 +51,24 @@ public class UserHandler extends DefaultHandler {
             } else if (isExpectedCountdown) {               // if we read the time until arrival, print spaces based
                                                             // on time, then print the actual time of arrival
                 int countdown = Integer.parseInt(new String(ch, start, length));
-                if (countdown >= 0) {                       // if the bus isn't already gone (but data has not updated)
-                    for (int i = 0; i < countdown - prevCountdown - (prevLength <= 1 ? 2 : (prevLength-2))/2; i++) {
-                        System.out.print("  ");             // spacing is proportional to the time between this bus
-                    }                                       // and the last bus, but also accounting for the length 
+                if (countdown >= 0) {                       // if the bus isn't already gone
+                    for (int i = 0; i < 2*(countdown - prevCountdown) - (prevLength <= 1 ? 1 : (prevLength-2)); i++) {
+                        System.out.print(' ');
+                    }                                       // spacing is proportional to the time between this bus
+                                                            // and the last bus, but also accounting for the length                                         
                                                             // of the string of the previous time
-                        
+
+                    
                     if (countdown - prevCountdown <= 2) {   // if there are 2 buses within 2 minutes of each other
                         System.out.print('*');              // we simply print a star
-                        prevLength = 1;                     // therefore the length of the previous string is 1
+                        prevLength++;                       // increment the previous length to account for the star
                     }
                     else {                                  // otherwise print the time without am/pm
                         System.out.print(new String(this.ch, this.start, this.length-2));
                         prevLength = this.length;           // update the previous length
-                    }
-                    prevCountdown = countdown;              // update the previous time until arrival
+                        prevCountdown = countdown;          // we only update the countdown in this case
+                    }                                       // because we don't want to base our spacing off the asterisk
+                                                            // since the time varies 
                 }
                 isExpectedCountdown = false;                // lower flag
             }
