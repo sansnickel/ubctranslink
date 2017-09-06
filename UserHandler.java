@@ -53,11 +53,9 @@ public class UserHandler extends DefaultHandler {
                 int countdown = Integer.parseInt(new String(ch, start, length));
                 if (countdown >= 0) {                       // if the bus isn't already gone
                     for (int i = 0; i < 2*(countdown - prevCountdown) - (prevLength <= 1 ? 1 : (prevLength-2)); i++) {
-                        System.out.print(' ');
-                    }                                       // spacing is proportional to the time between this bus
-                                                            // and the last bus, but also accounting for the length                                         
+                        System.out.print(' ');              // spacing is proportional to the time between this bus
+                    }                                       // and the last bus, but also accounting for the length
                                                             // of the string of the previous time
-
                     
                     if (countdown - prevCountdown <= 2) {   // if there are 2 buses within 2 minutes of each other
                         System.out.print('*');              // we simply print a star
