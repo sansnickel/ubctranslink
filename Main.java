@@ -22,7 +22,9 @@ public class Main {
        58895 - 4
 	*/
 	
-    final static int[] ubcstopnos = { 61935, 60100, 60117, 61934, 61979, 58895, 61701 };
+    final static int[] ubcstopnos = { 61935, 60100, 60117, 61934, 61979 
+                                      //58895, 61701
+                                    };
     final static int[] homestopnos = { 52084, 61323 };
 
     public static void main(String[] args) {

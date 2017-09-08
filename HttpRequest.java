@@ -31,8 +31,9 @@ public final class HttpRequest {
             InputStream is = c.getInputStream();
             SAXParserStream.parseSax(is);
         }
+        /* 
         else {
             System.out.println("\nNo buses found for stop " + stopno + " within the next " + TIME_FRAME + " minutes.");
-        }
+        }*/
     }
 }

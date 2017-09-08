@@ -61,7 +61,7 @@ public class UserHandler extends DefaultHandler {
                         System.out.print('*');              // we simply print a star
                         prevLength++;                       // increment the previous length to account for the star
                     }
-                    else {                                  // otherwise print the time without am/pm
+                    else {                                  // otherwise print the time
                         System.out.print(new String(this.ch, this.start, this.length));
                         prevLength = this.length;           // update the previous length
                         prevCountdown = countdown;          // we only update the countdown in this case
