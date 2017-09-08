@@ -46,13 +46,13 @@ public class UserHandler extends DefaultHandler {
             } else if (isExpectedLeaveTime) {               // if we read the estimated leave time, save it
                 this.ch = ch.clone();
                 this.start = start;
-                this.length = length;
+                this.length = new String(ch, start, length).indexOf(':')+3;
                 isExpectedLeaveTime = false;                // lower flag
             } else if (isExpectedCountdown) {               // if we read the time until arrival, print spaces based
                                                             // on time, then print the actual time of arrival
                 int countdown = Integer.parseInt(new String(ch, start, length));
                 if (countdown >= 0) {                       // if the bus isn't already gone
-                    for (int i = 0; i < 2*(countdown - prevCountdown) - (prevLength <= 1 ? 1 : (prevLength-2)); i++) {
+                    for (int i = 0; i < 2*(countdown - prevCountdown) - (prevLength == 0 ? 2 : (prevLength)); i++) {
                         System.out.print(' ');              // spacing is proportional to the time between this bus
                     }                                       // and the last bus, but also accounting for the length
                                                             // of the string of the previous time
@@ -62,7 +62,7 @@ public class UserHandler extends DefaultHandler {
                         prevLength++;                       // increment the previous length to account for the star
                     }
                     else {                                  // otherwise print the time without am/pm
-                        System.out.print(new String(this.ch, this.start, this.length-2));
+                        System.out.print(new String(this.ch, this.start, this.length));
                         prevLength = this.length;           // update the previous length
                         prevCountdown = countdown;          // we only update the countdown in this case
                     }                                       // because we don't want to base our spacing off the asterisk
