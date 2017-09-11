@@ -15,12 +15,12 @@ public final class HttpRequest {
     private static final int COUNT = 10;
 
     private static final String url = "http://api.translink.ca/rttiapi/v1/stops/";
-    private static final String api = "/estimates?apikey=VxujSiOu28llUoMXPgmw";
+    private static final String est = "/estimates?apikey=";
     private static final String count = "&count=" + COUNT;
     private static final String time = "&timeframe=" + TIME_FRAME;
 
-    public static void sendGet(int stopno) throws IOException, SAXException, ParserConfigurationException {
-        URL u = new URL(url + stopno + api + count + time);
+    public static void sendGet(int stopno, String api) throws IOException, SAXException, ParserConfigurationException {
+        URL u = new URL(url + stopno + est + api + count + time);
         HttpURLConnection c = (HttpURLConnection) u.openConnection();
 
         c.setRequestMethod("GET");

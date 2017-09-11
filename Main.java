@@ -26,17 +26,19 @@ public class Main {
                                       //58895, 61701
                                     };
     final static int[] homestopnos = { 52084, 61323 };
-
+    
+    
+    // run with your own api key as args[0]
     public static void main(String[] args) {
         try {
             System.out.println("From UBC:");
             for (int stopno : ubcstopnos) {
-                HttpRequest.sendGet(stopno);
+                HttpRequest.sendGet(stopno, args[0]);
             }
 
             System.out.println("\n\nFrom Home:");
             for (int stopno : homestopnos) {
-                HttpRequest.sendGet(stopno);
+                HttpRequest.sendGet(stopno, args[0]);
             }
             System.out.println("\n");
 
