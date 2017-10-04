@@ -12,12 +12,20 @@ import org.xml.sax.SAXException;
 public final class SAXParserStream {
 
     // creates a SAXParser so we can parse an inputstream using our userhandler
-    public static void parseSax(InputStream is) throws ParserConfigurationException, SAXException, IOException {
-
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser saxParser = factory.newSAXParser();
-        UserHandler userhandler = new UserHandler();
-        saxParser.parse(is, userhandler);
-
+    public static void parseSax(InputStream is) {
+        try {
+            if (is != null) {
+                SAXParserFactory factory = SAXParserFactory.newInstance();
+                SAXParser saxParser = factory.newSAXParser();
+                UserHandler userhandler = new UserHandler();
+                saxParser.parse(is, userhandler);
+            }
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,10 +1,7 @@
 package org.translink.main;
 
-import java.io.IOException;
+import java.io.InputStream;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 public class Main {
 
@@ -27,31 +24,32 @@ public class Main {
                                     };
     final static int[] homestopnos = { 52084, 61323 };
     
+
+    private static final int TIME_FRAME = 80;
+    private static final int COUNT = 10;
+
+    private static final String host = "http://api.translink.ca/rttiapi/v1/stops/";
+    private static final String est = "/estimates?apikey=";
+    private static final String count = "&count=" + COUNT;
+    private static final String time = "&timeframe=" + TIME_FRAME;
+    
     
     // run with your own api key as args[0]
     public static void main(String[] args) {
-        try {
-            System.out.println("From UBC:");
-            for (int stopno : ubcstopnos) {
-                HttpRequest.sendGet(stopno, args[0]);
-            }
-
-            System.out.println("\n\nFrom Home:");
-            for (int stopno : homestopnos) {
-                HttpRequest.sendGet(stopno, args[0]);
-            }
-            System.out.println("\n");
-
-        } catch (IOException e) {
-            System.out.println("Connection failure.\n");
-            e.printStackTrace();
-        } catch (SAXException e) {
-            System.out.println("Problem processing response.\n");
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            System.out.println("Problem creating parser.\n");
-            e.printStackTrace();
+        System.out.println("From UBC:");
+        for (int stopno : ubcstopnos) {
+            String url = host + stopno + est + args[0] + count + time;
+            InputStream is = HttpRequest.sendGet(url);
+            SAXParserStream.parseSax(is);
         }
+      
+        System.out.println("\n\nFrom Home:");
+        for (int stopno : homestopnos) {
+            String url = host + stopno + est + args[0] + count + time;
+            InputStream is = HttpRequest.sendGet(url);
+            SAXParserStream.parseSax(is);
+        }
+        System.out.println("\n");
     }
 
 }
